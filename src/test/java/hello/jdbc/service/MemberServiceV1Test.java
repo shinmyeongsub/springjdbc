@@ -41,7 +41,7 @@ class MemberServiceV1Test {
     }
 
     @Test
-    @DisplayName("정상 이해")
+    @DisplayName("정상 이체")
     void accountTransfer() throws SQLException {
         // given
         Member memberA = new Member(MEMBER_A, 10000);
