@@ -1,7 +1,7 @@
 package hello.jdbc.service;
 
 import hello.jdbc.domain.Member;
-import hello.jdbc.repository.*;
+import hello.jdbc.repository.MemberRepositoryV3;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
@@ -15,18 +15,22 @@ import org.springframework.context.annotation.Bean;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+
+/**
+ * 트랜잭션 - DataSource, transactionManager 자동 등록
+ */
 @Slf4j
 @SpringBootTest
-class MemberServiceV4Test {
+class MemberServiceV3_4Test {
 
     public static final String MEMBER_A = "memberA";
     public static final String MEMBER_B = "memberB";
     public static final String MEMBER_EX = "ex";
 
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberRepositoryV3 memberRepository;
     @Autowired
-    private MemberServiceV4 memberService;
+    private MemberServiceV3_3 memberService;
 
     @TestConfiguration
     static class TestConfig {
@@ -38,14 +42,13 @@ class MemberServiceV4Test {
         }
 
         @Bean
-        MemberRepository memberRepository() {
-//            return new MemberRepositoryV4_2(dataSource);
-            return new MemberRepositoryV5(dataSource);
+        MemberRepositoryV3 memberRepositoryV3() {
+            return new MemberRepositoryV3(dataSource);
         }
 
         @Bean
-        MemberServiceV4 memberServiceV4() {
-            return new MemberServiceV4(memberRepository());
+        MemberServiceV3_3 memberServiceV3_3() {
+            return new MemberServiceV3_3(memberRepositoryV3());
         }
     }
 
